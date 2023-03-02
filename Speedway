@@ -1,0 +1,73 @@
+import java.util.Scanner;
+
+public class SpeedwayRacing {
+    // Constants
+    private static final int NUM_BRANDS = 17;
+    private static final int NUM_SEASONS = 8;
+    private static final int NUM_CHAPTERS = 12;
+    private static final int NUM_TRACKS = 10;
+    private static final int NUM_MODES = 3;
+    private static final int NUM_DIFFICULTIES = 3;
+
+    // Instance variables
+    private String[] carBrands;
+    private String[] seasons;
+    private String[][] chapters;
+    private String[][][] tracks;
+    private String[] modes;
+    private String[] difficulties;
+
+    // Constructor
+    public SpeedwayRacing() {
+        carBrands = new String[]{"Brand1", "Brand2", "Brand3", ..., "Brand17"};
+        seasons = new String[]{"Season1", "Season2", "Season3", ..., "Season8"};
+        chapters = new String[NUM_SEASONS][NUM_CHAPTERS];
+        for (int i = 0; i < NUM_SEASONS; i++) {
+            for (int j = 0; j < NUM_CHAPTERS; j++) {
+                chapters[i][j] = "Chapter " + (j + 1);
+            }
+        }
+        tracks = new String[NUM_SEASONS][NUM_CHAPTERS][NUM_TRACKS];
+        for (int i = 0; i < NUM_SEASONS; i++) {
+            for (int j = 0; j < NUM_CHAPTERS; j++) {
+                for (int k = 0; k < NUM_TRACKS; k++) {
+                    tracks[i][j][k] = "Track " + (k + 1);
+                }
+            }
+        }
+        modes = new String[]{"Singleplayer", "Online Multiplayer", "Offline Multiplayer"};
+        difficulties = new String[]{"Easy", "Normal", "Hard"};
+    }
+
+    // Methods
+    public void startGame() {
+        Scanner scanner = new Scanner(System.in);
+
+        // Display the welcome message and game title
+        System.out.println("Welcome to Speedway Racing!\n");
+
+        // Get the player's name
+        System.out.print("Please enter your name: ");
+        String playerName = scanner.nextLine();
+
+        // Display the available car brands
+        System.out.println("\nAvailable car brands:");
+        for (int i = 0; i < NUM_BRANDS; i++) {
+            System.out.println((i + 1) + ". " + carBrands[i]);
+        }
+
+        // Get the player's choice of car brand
+        int carBrandChoice = 0;
+        while (carBrandChoice < 1 || carBrandChoice > NUM_BRANDS) {
+            System.out.print("\nPlease choose a car brand (1-" + NUM_BRANDS + "): ");
+            carBrandChoice = scanner.nextInt();
+        }
+        String chosenCarBrand = carBrands[carBrandChoice - 1];
+
+        // Display the available seasons
+        System.out.println("\nAvailable seasons:");
+        for (int i = 0; i < NUM_SEASONS; i++) {
+            System.out.println((i + 1) + ". " + seasons[i]);
+        }
+
+        // Get the player's
