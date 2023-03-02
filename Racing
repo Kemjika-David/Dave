@@ -1,0 +1,86 @@
+import pygame
+import random
+
+# Initialize Pygame
+pygame.init()
+
+# Define some colors
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+
+# Set the width and height of the screen
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+# Set the title of the window
+pygame.display.set_caption("Racing Game")
+
+# Create a clock object to control the frame rate
+clock = pygame.time.Clock()
+
+# Load the images for the car and the track
+car_image = pygame.image.load('car.png')
+track_image = pygame.image.load('track.png')
+
+# Define the starting position of the car
+car_x = SCREEN_WIDTH // 2
+car_y = SCREEN_HEIGHT - 100
+
+# Define the speed of the car
+car_speed = 5
+
+# Define the position of the track
+track_x = 0
+track_y = 0
+
+# Define the speed of the track
+track_speed = 2
+
+# Define the font for the score
+font = pygame.font.Font(None, 36)
+
+# Set the initial score to zero
+score = 0
+
+# Main game loop
+game_over = False
+while not game_over:
+
+# Handle events
+for event in pygame.event.get():
+if event.type == pygame.QUIT:
+game_over = True
+
+# Move the car left or right
+keys = pygame.key.get_pressed()
+if keys[pygame.K_LEFT]:
+car_x -= car_speed
+if keys[pygame.K_RIGHT]:
+car_x += car_speed
+
+# Move the track down
+track_y += track_speed
+
+# If the track goes off the screen, reset it to the top
+if track_y > SCREEN_HEIGHT:
+track_y = 0
+track_x = random.randint(0, SCREEN_WIDTH - track_image.get_width())
+score += 1
+
+# Draw the track and the car
+screen.blit(track_image, (track_x, track_y))
+screen.blit(car_image, (car_x, car_y))
+
+# Draw the score
+score_text = font.render("Score: {}".format(score), True, WHITE)
+screen.blit(score_text, (10, 10))
+
+# Update the screen
+pygame.display.flip()
+
+# Set the frame rate
+clock.tick(60)
+
+# Quit Pygame
+pygame.quit()
