@@ -1,0 +1,66 @@
+import java.util.Scanner;
+
+public class CityExplorer {
+
+private static final int MAX_LOCATIONS = 12;
+private static final int MAX_ITEMS = 5;
+private static final int MAX_CHARACTERS = 6;
+private static final int MAX_NPCS = 9;
+private static final int MAX_VEHICLES = 15;
+
+private static String[] locations = {"park", "beach", "mall", "library", "museum", "zoo", "movie theater", "restaurant", "amusement park", "concert hall", "airport", "seaport"};
+private static String[] items = {"wallet", "keys", "phone", "sunglasses", "water bottle"};
+
+private static boolean[] visited = new boolean[MAX_LOCATIONS];
+private static boolean[] collected = new boolean[MAX_ITEMS];
+
+private static Scanner scanner = new Scanner(System.in);
+
+private static String[] characters = {"John", "Samantha", "David", "Emily", "Olivia", "Cyborg 9000"};
+private static String[] genders = {"male", "female", "male", "female", "female", "cyborg"};
+private static String[] npcs = {"vendor", "street musician", "police officer", "waiter", "tourist", "doctor", "artist", "chef", "driver"};
+private static String[] vehicles = {"BMW", "Mercedes", "Audi", "Ferrari", "Lamborghini", "Ford", "Toyota", "Boeing 747", "Airbus A380", "Cessna Citation X", "Bell 407", "Eurocopter EC130", "Boeing CH-47 Chinook", "Eurofighter Typhoon", "Apache helicopter"};
+private static String mansionLocation = "mansion";
+private static boolean mansionVisited = false;
+
+public static void main(String[] args) {
+System.out.println("Welcome to City Explorer!");
+System.out.println("Explore the city and collect items along the way.");
+
+// start the game at the mansion
+System.out.println("You are at your mansion. Welcome home!");
+mansionVisited = true;
+
+while (true) {
+System.out.print("Enter a command (move, collect, inventory, quit): ");
+String command = scanner.nextLine();
+
+if (command.equalsIgnoreCase("move")) {
+move();
+} else if (command.equalsIgnoreCase("collect")) {
+collect();
+} else if (command.equalsIgnoreCase("inventory")) {
+displayInventory();
+} else if (command.equalsIgnoreCase("quit")) {
+System.out.println("Thanks for playing!");
+break;
+} else {
+System.out.println("Invalid command. Try again.");
+}
+}
+}
+
+private static void move() {
+int newLocation = (int) (Math.random() * MAX_LOCATIONS);
+while (newLocation == mansionLocation || visited[newLocation]) {
+newLocation = (int) (Math.random() * MAX_LOCATIONS);
+}
+
+visited[newLocation] = true;
+System.out.println("You are now at " + locations[newLocation]);
+
+// random event
+int event = (int) (Math.random() * 3);
+switch (event) {
+case 0:
+System.out.println("You meet " + characters[(int) (Math.random() * MAX_CHARACTERS)] +
