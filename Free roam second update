@@ -1,0 +1,85 @@
+private static final int MAX_LOCATIONS = 10;
+private static final int MAX_ITEMS = 5;
+private static final int MAX_CARS = 15;
+private static final int MAX_CHARACTERS = 5;
+
+private static String[] locations = {"park", "beach", "mall", "library", "museum", "zoo", "movie theater", "restaurant", "amusement park", "concert hall"};
+private static String[] items = {"wallet", "keys", "phone", "sunglasses", "water bottle"};
+private static String[] cars = {"Toyota", "Honda", "Ford", "Chevrolet", "Nissan", "BMW", "Mercedes-Benz", "Audi", "Volkswagen", "Porsche", "Tesla", "Hyundai", "Kia", "Mazda", "Subaru"};
+
+private static boolean[] visited = new boolean[MAX_LOCATIONS];
+private static boolean[] collected = new boolean[MAX_ITEMS];
+
+private static String[] maleCharacters = {"John", "David"};
+private static String[] femaleCharacters = {"Sarah", "Emily", "Jessica"};
+private static String[] npcTypes = {"vendor", "tourist", "local", "police officer", "street musician", "street vendor", "pet owner", "street artist", "street performer"};
+
+private static Scanner scanner = new Scanner(System.in);
+
+public static void main(String[] args) {
+System.out.println("Welcome to Free Roam Simulator!");
+System.out.println("Explore the city, collect items, and discover different cars!");
+
+// start the game at a random location
+int currentLocation = (int) (Math.random() * MAX_LOCATIONS);
+visited[currentLocation] = true;
+System.out.println("You are at " + locations[currentLocation]);
+
+// spawn random characters
+spawnCharacters();
+
+while (true) {
+System.out.print("Enter a command (move, collect, inventory, cars, quit): ");
+String command = scanner.nextLine();
+
+if (command.equalsIgnoreCase("move")) {
+currentLocation = move(currentLocation);
+// spawn random characters after moving
+spawnCharacters();
+} else if (command.equalsIgnoreCase("collect")) {
+collect(currentLocation);
+} else if (command.equalsIgnoreCase("inventory")) {
+displayInventory();
+} else if (command.equalsIgnoreCase("cars")) {
+discoverCars();
+} else if (command.equalsIgnoreCase("quit")) {
+System.out.println("Thanks for playing!");
+break;
+} else {
+System.out.println("Invalid command. Try again.");
+}
+}
+}
+
+private static int move(int currentLocation) {
+int newLocation = currentLocation;
+
+while (newLocation == currentLocation) {
+newLocation = (int) (Math.random() * MAX_LOCATIONS);
+}
+
+visited[newLocation] = true;
+System.out.println("You are now at " + locations[newLocation]);
+
+return newLocation;
+}
+
+private static void collect(int currentLocation) {
+int itemIndex = (int) (Math.random() * MAX_ITEMS);
+
+if (collected[itemIndex]) {
+System.out.println("You've already collected this item.");
+} else {
+collected[itemIndex] = true;
+System.out.println("You've collected a " + items[itemIndex] + " at " + locations[currentLocation]);
+}
+}
+
+private static void displayInventory() {
+System.out.println("Your inventory:");
+
+boolean empty = true;
+
+for (int i = 0; i < MAX_ITEMS; i++) {
+if (collected[i]) {
+System
