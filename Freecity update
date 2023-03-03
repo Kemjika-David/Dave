@@ -1,0 +1,88 @@
+import java.util.Random;
+
+public class FreeCityDrivingGame {
+
+private static final String[] CAR_BRANDS = {"Toyota", "Ford", "Chevrolet", "Honda", "BMW",
+"Mercedes-Benz", "Audi", "Tesla", "Volvo", "Jaguar",
+"Porsche", "Lamborghini", "Ferrari", "Maserati", "Bentley"};
+private static final int NUM_CARS = 15;
+
+public static void main(String[] args) {
+// create a garage with an array of cars
+Garage garage = new Garage(NUM_CARS);
+Random random = new Random();
+
+// spawn the character in the garage with a random car
+int carIndex = random.nextInt(NUM_CARS);
+Car car = garage.getCars()[carIndex];
+Character character = new Character(car);
+
+// start the game
+System.out.println("Welcome to Free City Driving Game!");
+System.out.println("You have spawned in the garage with a " + character.getCar().getBrand() + " " + character.getCar().getModel() + ".");
+System.out.println("You have " + garage.getNumCars() + " cars to choose from in the garage:");
+for (int i = 0; i < garage.getNumCars(); i++) {
+System.out.println((i + 1) + ". " + garage.getCars()[i].getBrand() + " " + garage.getCars()[i].getModel());
+}
+}
+
+private static class Garage {
+private int numCars;
+private Car[] cars;
+
+public Garage(int numCars) {
+this.numCars = numCars;
+this.cars = new Car[numCars];
+Random random = new Random();
+
+// populate the array with cars of random brands
+for (int i = 0; i < numCars; i++) {
+int brandIndex = random.nextInt(CAR_BRANDS.length);
+String brand = CAR_BRANDS[brandIndex];
+Car car = new Car(brand);
+cars[i] = car;
+}
+}
+
+public int getNumCars() {
+return numCars;
+}
+
+public Car[] getCars() {
+return cars;
+}
+
+public void setCars(Car[] cars) {
+this.cars = cars;
+}
+
+public void addCar(Car car) {
+Car[] newCars = new Car[numCars + 1];
+for (int i = 0; i < numCars; i++) {
+newCars[i] = cars[i];
+}
+newCars[numCars] = car;
+numCars++;
+cars = newCars;
+}
+
+public void removeCar(int index) {
+Car[] newCars = new Car[numCars - 1];
+for (int i = 0, j = 0; i < numCars; i++) {
+if (i != index) {
+newCars[j++] = cars[i];
+}
+}
+numCars--;
+cars = newCars;
+}
+
+public void swapCar(int index1, int index2) {
+Car temp = cars[index1];
+cars[index1] = cars[index2];
+cars[index2] = temp;
+}
+
+public void sortCarsByBrand() {
+for (int i = 0; i < numCars; i++) {
+for (int
